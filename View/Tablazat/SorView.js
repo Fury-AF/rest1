@@ -6,15 +6,27 @@ export default class SorView {
     this.szuloElem = szuloElem;
     console.log(this.#obj);
     this.htmlOsszerak();
+    //megfogjuk a törles gombot
+    this.torlesElem = this.szuloElem.find(".torles:last");
+    console.log(this.torlesElem);
+    this.torlesElem.on("click", () => {
+      console.log("törlés");
+      this.trigger("sorTorles");
+    });
+  }
+
+  Trigger(e) {
+    const esemenyem = new CutsomEvent(e, { detail: this.index });
+    window.dispatchEvent(esemenyem);
   }
   htmlOsszerak() {
-    let txt="<tr>"
+    let txt = "<tr>";
     for (const key in this.#obj) {
-        txt+=`<td>${this.#obj[key]}</td>`
+      txt += `<td>${this.#obj[key]}</td>`;
     }
-
-    txt+="</tr>"
-    console.log(txt)
-    this.szuloElem.append(txt)
+    txt += `<td><button class="torles">X </button></td> `;
+    txt += "</tr>";
+    console.log(txt);
+    this.szuloElem.append(txt);
   }
 }
